@@ -1,15 +1,26 @@
-# codex-console
+# codex-console · Grok 壳适配版
 
-> ⚠️ 本地已做一版 **Grok 壳适配**：保留 Web 控制台、任务状态和实时日志，移除了支付/绑卡相关入口。请先看仓库根目录 [`GROK_SHELL_ADAPTATION.md`](./GROK_SHELL_ADAPTATION.md)。
+> ⚠️ **当前分支 `grok-shell-adapt` 不是原始 OpenAI 版，而是一个面向 Grok 的 Web 壳适配版。**
+>
+> 这版仓库的目标不是继续完善 OpenAI 注册，而是：
+> - 保留原项目最有价值的 **Web 控制台壳**
+> - 保留 **任务管理 / 实时日志 / 账号管理 / 设置页**
+> - 删除 **支付 / 绑卡 / 卡池 / auto-team** 等与当前目标无关的功能
+> - 把原来的 OpenAI 注册大引擎替换成 **Grok 可插骨架**，方便你继续接自己的注册逻辑
+>
+> **先看这两份文档：**
+> - [`GROK_SHELL_ADAPTATION.md`](./GROK_SHELL_ADAPTATION.md) —— 哪些能复用，哪些必须改
+> - [`GROK_REGISTER_MAPPING.md`](./GROK_REGISTER_MAPPING.md) —— 你之前的 `grok-register` 代码该塞到哪里
 
 基于 [cnlimiter/codex-manager](https://github.com/cnlimiter/codex-manager) 持续修复和维护的增强版本。
 
-这个版本的目标很直接: 把近期 OpenAI 注册链路里那些“昨天还能跑，今天突然翻车”的坑补上，让注册、登录、拿 token、打包运行都更稳一点。
+当前这个分支已经不再把“OpenAI 注册链路增强”当作目标，而是把它整理成一个更容易继续二开的 **Grok 注册控制台壳**。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 
-- GitHub Repo: [https://github.com/dou-jiang/codex-console](https://github.com/dou-jiang/codex-console)
+- 原始上游仓库: [https://github.com/dou-jiang/codex-console](https://github.com/dou-jiang/codex-console)
+- 当前适配分支所在仓库: [https://github.com/zzhjj/codex-console/tree/grok-shell-adapt](https://github.com/zzhjj/codex-console/tree/grok-shell-adapt)
 
 ## QQ群
 
@@ -22,7 +33,33 @@
 
 本仓库是在原项目思路和结构之上进行兼容性修复、流程调整和体验优化，适合作为一个“当前可用的修复维护版”继续使用。
 
-## 版本更新
+## 当前分支状态（Grok 壳适配）
+
+### 这版已经做了什么
+
+- 页面主文案已改成 **Grok 注册控制台**
+- 顶部导航已移除：**支付 / 卡池 / 自动进 team**
+- 已删除对应的后端路由与前端页面文件
+- 新增网页说明页：`/adaptation-guide`
+- `src/core/register.py` 已改成 **Grok 可插骨架版**
+- `src/core/openai/overview.py` / `src/core/openai/token_refresh.py` 已改成占位兼容版，避免页面直接报错
+
+### 这版还没有做什么
+
+- 还没有把你自己的 Grok 注册内核真正填进 `src/core/register.py::_perform_registration()`
+- 还没有把 `grok-register` 里的邮箱 / Turnstile / solver 模块正式并入当前仓库结构
+- 还没有把 `src/config/constants.py` 里剩余的 OpenAI 常量彻底换成 Grok 常量
+
+### 你应该先看哪几个文件
+
+1. `src/core/register.py`
+2. `GROK_REGISTER_MAPPING.md`
+3. `GROK_SHELL_ADAPTATION.md`
+4. `src/web/routes/registration.py`
+5. `src/web/task_manager.py`
+6. `src/web/routes/websocket.py`
+
+## 原项目历史说明（保留）
 
 ### v1.0
 
@@ -89,7 +126,16 @@
 
 14. 批量注册上限由 `100` 提升至 `1000`（前后端同步）。
 
-## 核心能力
+## 当前壳的核心能力
+
+- Web UI 管理任务、账号和设置
+- 后台线程池执行任务
+- WebSocket 实时推送日志与状态
+- 支持 SQLite 和远程 PostgreSQL
+- 支持打包为 Windows/Linux/macOS 可执行文件
+- 适合作为 **Grok 注册控制台壳** 继续二开
+
+## 原项目的核心能力（历史说明）
 
 - Web UI 管理注册任务和账号数据
 - 支持批量注册、日志实时查看、基础任务管理
