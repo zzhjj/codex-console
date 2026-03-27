@@ -46,9 +46,9 @@ class EmailServiceType(str, Enum):
 # 应用常量
 # ============================================================================
 
-APP_NAME = "OpenAI/Codex CLI 自动注册系统"
+APP_NAME = "Grok 注册控制台（壳）"
 APP_VERSION = "1.1.1"
-APP_DESCRIPTION = "自动注册 OpenAI/Codex CLI 账号的系统"
+APP_DESCRIPTION = "保留 Web 控制台壳与任务日志能力，业务内核需手动适配为 Grok 的系统"
 
 # ============================================================================
 # OpenAI OAuth 相关常量

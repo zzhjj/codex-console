@@ -1,4 +1,10 @@
 """
+[ADAPTATION NOTE]
+这个文件是 OpenAI OAuth/PKCE 专用模块。
+Grok 不能直接复用，请改成你自己的登录/注册会话获取逻辑，或者彻底移除。
+"""
+
+"""
 OpenAI OAuth 授权模块
 从 main.py 中提取的 OAuth 相关函数
 """

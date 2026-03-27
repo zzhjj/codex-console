@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>适配说明 - Grok 注册控制台</title>
+    <link rel="stylesheet" href="/static/css/style.css?v={{ static_version }}">
+</head>
+<body>
+    {% include "partials/site_notice.html" %}
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav-brand"><h1>Grok 注册控制台</h1></div>
+            <div class="nav-links">
+                <a href="/" class="nav-link">注册</a>
+                <a href="/accounts" class="nav-link">账号管理</a>
+                <a href="/accounts-overview" class="nav-link">账号总览</a>
+                <a href="/email-services" class="nav-link">邮箱服务</a>
+                <a href="/logs" class="nav-link">后台日志</a>
+                <a href="/settings" class="nav-link">设置</a>
+                <a href="/adaptation-guide" class="nav-link active">适配说明</a>
+                <a href="/logout" class="nav-link">退出</a>
+            </div>
+            <button class="theme-toggle" onclick="theme.toggle()" title="切换主题">🌙</button>
+        </nav>
+        <main class="main-content">
+            <div class="page-header">
+                <h2>适配说明</h2>
+                <p class="subtitle">这一页只讲这个壳哪些已经能复用，哪些仍然是 OpenAI 强绑定。</p>
+            </div>
+            <div class="card"><div class="card-header"><h3>我已经帮你处理好的</h3></div><div class="card-body"><ul>
+                <li>页面文案主标题已改成 <strong>Grok 注册控制台</strong>。</li>
+                <li>顶部导航里的 <strong>支付 / 卡池 / 自动进 team</strong> 已从 UI 移除。</li>
+                <li>FastAPI 页面路由中，支付/卡池/自动进 team 页面入口已移除。</li>
+                <li>API 总路由中，<code>/api/payment</code> 已取消挂载，不会再暴露支付接口。</li>
+                <li>新增了仓库根目录 <code>GROK_SHELL_ADAPTATION.md</code>，方便你在 GitHub 上直接看。</li>
+                <li>已删除旧的支付/绑卡相关文件：<code>payment.py</code>、<code>browser_bind.py</code>、<code>payment.js</code> 以及对应模板。</li>
+            </ul></div></div>
+            <div class="card"><div class="card-header"><h3>这些壳层你可以直接复用</h3></div><div class="card-body"><ul>
+                <li><code>webui.py</code>：启动入口</li>
+                <li><code>src/web/app.py</code>：FastAPI + 模板页面</li>
+                <li><code>src/web/task_manager.py</code>：后台任务、日志队列、线程池</li>
+                <li><code>src/web/routes/websocket.py</code>：WebSocket 实时日志推送</li>
+                <li><code>templates/*</code> + <code>static/js/*</code>：页面壳、按钮、日志展示</li>
+                <li><code>src/database/models.py</code> + <code>src/database/crud.py</code>：数据库与 CRUD 结构</li>
+            </ul></div></div>
+            <div class="card"><div class="card-header"><h3>这些文件你必须自己改成 Grok</h3></div><div class="card-body"><ul>
+                <li><code>src/core/register.py</code>：现在仍是 OpenAI 注册主引擎，必须重写请求流程。</li>
+                <li><code>src/core/openai/oauth.py</code>：OpenAI OAuth 专用，Grok 不可直接用。</li>
+                <li><code>src/core/openai/token_refresh.py</code>：ChatGPT/Codex token 刷新专用，Grok 不可直接用。</li>
+                <li><code>src/core/openai/overview.py</code>：ChatGPT 概览与订阅信息抓取专用，Grok 不可直接用。</li>
+                <li><code>src/config/constants.py</code> 里的 OpenAI 端点、页面类型、验证码关键词：要按你的 Grok 流程重写。</li>
+            </ul></div></div>
+            <div class="card"><div class="card-header"><h3>建议你保留但暂时别动的</h3></div><div class="card-body"><ul>
+                <li><code>src/core/http_client.py</code>：HTTP 请求封装，可以继续用。</li>
+                <li><code>src/services/*</code>：邮箱服务可以按需复用；如果你的 Grok 注册机只用 Mail.tm，就只保留对应服务即可。</li>
+                <li><code>src/web/routes/accounts.py</code>：账号管理页能继续用，但字段含义你要自己调整。</li>
+                <li><code>src/web/routes/registration.py</code>：任务派发和日志推送能继续用，但具体调用的引擎要换。</li>
+            </ul></div></div>
+            <div class="card"><div class="card-header"><h3>下一步最短路径</h3></div><div class="card-body"><ol>
+                <li>先看仓库根目录 <code>GROK_SHELL_ADAPTATION.md</code>。</li>
+                <li>把 <code>src/core/register.py</code> 改成调用你的 <code>grok-register</code> 逻辑。</li>
+                <li>如果不需要 Outlook/绑卡/支付，把相关源文件从仓库里彻底删掉。</li>
+                <li>先跑通“单任务 + 日志上屏”，再做批量任务。</li>
+            </ol></div></div>
+        </main>
+    </div>
+    <script src="/static/js/theme.js?v={{ static_version }}"></script>
+</body>
+</html>

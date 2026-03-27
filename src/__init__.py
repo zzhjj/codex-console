@@ -1,5 +1,5 @@
 """
-OpenAI/Codex CLI 自动注册系统
+Grok 注册控制台（壳）
 """
 
 from .config import get_settings, EmailServiceType

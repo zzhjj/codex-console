@@ -1,5 +1,7 @@
 # codex-console
 
+> ⚠️ 本地已做一版 **Grok 壳适配**：保留 Web 控制台、任务状态和实时日志，移除了支付/绑卡相关入口。请先看仓库根目录 [`GROK_SHELL_ADAPTATION.md`](./GROK_SHELL_ADAPTATION.md)。
+
 基于 [cnlimiter/codex-manager](https://github.com/cnlimiter/codex-manager) 持续修复和维护的增强版本。
 
 这个版本的目标很直接: 把近期 OpenAI 注册链路里那些“昨天还能跑，今天突然翻车”的坑补上，让注册、登录、拿 token、打包运行都更稳一点。

@@ -54,7 +54,7 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title=settings.app_name,
         version=settings.app_version,
-        description="OpenAI/Codex CLI 自动注册系统 Web UI",
+        description="Grok 注册控制台（保留 Web 壳，业务内核待手动适配）Web UI",
         docs_url="/api/docs" if settings.debug else None,
         redoc_url="/api/redoc" if settings.debug else None,
     )
@@ -202,24 +202,12 @@ def create_app() -> FastAPI:
             return _redirect_to_login(request)
         return _render_template(request, "settings.html")
 
-    @app.get("/payment", response_class=HTMLResponse)
-    async def payment_page(request: Request):
-        """支付页面"""
-        return _render_template(request, "payment.html")
-
-    @app.get("/card-pool", response_class=HTMLResponse)
-    async def card_pool_page(request: Request):
-        """卡池页面（占位）"""
+    @app.get("/adaptation-guide", response_class=HTMLResponse)
+    async def adaptation_guide_page(request: Request):
+        """Grok 适配说明页面"""
         if not _is_authenticated(request):
             return _redirect_to_login(request)
-        return _render_template(request, "card_pool.html")
-
-    @app.get("/auto-team", response_class=HTMLResponse)
-    async def auto_team_page(request: Request):
-        """自动进 Team 页面（占位）"""
-        if not _is_authenticated(request):
-            return _redirect_to_login(request)
-        return _render_template(request, "auto_team.html")
+        return _render_template(request, "adaptation_guide.html")
 
     @app.get("/logs", response_class=HTMLResponse)
     async def logs_page(request: Request):

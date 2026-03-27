@@ -1,4 +1,10 @@
 """
+[ADAPTATION NOTE]
+这个文件是 ChatGPT/Codex Session Token / OAuth Refresh Token 刷新逻辑。
+如果你改成 Grok，这里通常不能直接用。
+"""
+
+"""
 Token 刷新模块
 支持 Session Token 和 OAuth Refresh Token 两种刷新方式
 """

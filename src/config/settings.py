@@ -42,7 +42,7 @@ SETTING_DEFINITIONS: Dict[str, SettingDefinition] = {
     # 应用信息
     "app_name": SettingDefinition(
         db_key="app.name",
-        default_value="OpenAI/Codex CLI 自动注册系统",
+        default_value="Grok 注册控制台（壳）",
         category=SettingCategory.GENERAL,
         description="应用名称"
     ),
@@ -638,7 +638,7 @@ class Settings(BaseModel):
     """
 
     # 应用信息
-    app_name: str = "OpenAI/Codex CLI 自动注册系统"
+    app_name: str = "Grok 注册控制台（壳）"
     app_version: str = "1.1.1"
     debug: bool = False
 
