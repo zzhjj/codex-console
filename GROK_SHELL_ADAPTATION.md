@@ -9,6 +9,7 @@
 - `src/web/app.py` 中对应页面入口已移除
 - `src/web/routes/__init__.py` 中已取消挂载 `payment_router`
 - 新增网页说明页：`/adaptation-guide`
+- 新增：`GROK_REGISTER_MAPPING.md`，专门说明 `grok-register` 代码应如何塞进当前壳
 - 已删除：`src/web/routes/payment.py`、`src/core/openai/payment.py`、`src/core/openai/browser_bind.py`、`static/js/payment.js`、`templates/payment.html`、`templates/card_pool.html`、`templates/auto_team.html`
 
 ## 可以直接复用的壳层
